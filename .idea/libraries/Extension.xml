@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Extension">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Extension/mysql-connector-java-8.0.23.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Extension/Font_Exo_2.zip!/" />
+      <root url="jar://$PROJECT_DIR$/Extension/Markazi_Text.zip!/" />
+      <root url="jar://$PROJECT_DIR$/Extension/flatlaf-1.1.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Extension/sqljdbc42.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
