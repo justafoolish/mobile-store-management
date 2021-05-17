@@ -1775,7 +1775,6 @@ public class Product_Manager extends javax.swing.JFrame {
         jComboBox8.setSelectedItem(jTable4.getModel().getValueAt(i,2).toString());
         jComboBox8.setEnabled(false);
         String date[] = jTable4.getModel().getValueAt(i,3).toString().split("-");
-        System.out.println(date[0] + " " + date[1] + " " + date[2]);
         jComboBox3.setSelectedItem(date[2]);
         jComboBox3.setEnabled(false);
         jComboBox5.setSelectedItem(date[1]);

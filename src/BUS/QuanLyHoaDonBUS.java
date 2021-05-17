@@ -4,6 +4,7 @@ import DAO.QuanLyHoaDonDAO;
 import DTO.HoaDon;
 import DTO.KhachHang;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class QuanLyHoaDonBUS {
@@ -99,5 +100,41 @@ public class QuanLyHoaDonBUS {
             }
         }
         return false;
+    }
+    public ArrayList<HoaDon> search(String option, String keyword) {
+        ArrayList<HoaDon> result = new ArrayList<>();
+        dshd.forEach((hd) -> {
+            switch (option) {
+                case "Mã hoá đơn":
+                    if(hd.getMaHoaDon().toLowerCase().equals(keyword.toLowerCase())) {
+                        result.add(hd);
+                    }
+                    break;
+                case "Mã nhân viên":
+                    if(hd.getMaNhanVien().toLowerCase().equals(keyword.toLowerCase())) {
+                        result.add(hd);
+                    }
+                    break;
+                case "Mã khách hàng":
+                    if(hd.getMaKhachHang().toLowerCase().equals(keyword.toLowerCase()))
+                        result.add(hd);
+                    break;
+                case "Mã giảm giá":
+                    if(hd.getMaGiamGia().toLowerCase().equals(keyword.toLowerCase()))
+                        result.add(hd);
+                    break;
+
+            }
+        });
+        return result;
+    }
+    public ArrayList<HoaDon> searchByDate(LocalDate date1, LocalDate date2) {
+        ArrayList<HoaDon> result = new ArrayList<>();
+        dshd.forEach((hd) -> {
+            if(hd.getNgayLap().isBefore(date2) && hd.getNgayLap().isAfter(date1)) {
+                result.add(hd);
+            }
+        });
+        return result;
     }
 }
