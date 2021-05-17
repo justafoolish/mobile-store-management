@@ -38,6 +38,7 @@ public class QuanLyPhieuNhapDAO {
                     pn.setMaNhanVien(rs.getString("MANHANVIEN"));
                     pn.setMaNCC(rs.getString("MANCC"));                   
                     pn.setNgayNhap(rs.getDate("NGAYNHAP").toLocalDate());
+                    pn.setTongTien(rs.getInt("TONGTIEN"));
                     dspn.add(pn);
                 }
             }
@@ -51,11 +52,11 @@ public class QuanLyPhieuNhapDAO {
 
     public Boolean add(PhieuNhap pn) {
         connection = new ConnectionDB();
-        Boolean ok = connection.sqlUpdate("INSERT INTO `phieunhap`(`MAPHIEUNHAP`,`MANHANVIEN`,`MANCC`,`NGAYNHAP`) VALUES ('"
+        Boolean ok = connection.sqlUpdate("INSERT INTO `phieunhap`(`MAPHIEUNHAP`,`MANHANVIEN`,`MANCC`,`NGAYNHAP`,TONGTIEN) VALUES ('"
                 + pn.getMaPhieuNhap()+ "','"
                 + pn.getMaNhanVien()+ "','"
                 + pn.getMaNCC()+ "','"
-                + pn.getNgayNhap()+ "');");
+                + pn.getNgayNhap() + "', '"+ pn.getTongTien()+"')");
         connection.closeConnect();
         return ok;
     }
@@ -68,7 +69,7 @@ public class QuanLyPhieuNhapDAO {
             return false;
         }
         connection.closeConnect();
-        return false;
+        return true;
     }
 
     public Boolean update(PhieuNhap pn) {

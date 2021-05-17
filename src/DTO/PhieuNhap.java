@@ -6,22 +6,33 @@ public class PhieuNhap {
     
     private String maPhieuNhap, maNhanVien, maNCC;
     private LocalDate ngayNhap;
+    private int tongTien;
 
     public PhieuNhap() {
         ;
         this.ngayNhap = LocalDate.now();
     }
-    public PhieuNhap(String maPhieuNhap, String maNhanVien, String maNCC, LocalDate ngayNhap) {
+    public PhieuNhap(String maPhieuNhap, String maNhanVien, String maNCC, LocalDate ngayNhap, int tongTien) {
         this.maPhieuNhap = maPhieuNhap;
         this.maNhanVien = maNhanVien;
         this.maNCC = maNCC;
         this.ngayNhap = ngayNhap;
+        this.tongTien = tongTien;
     }
     public PhieuNhap(PhieuNhap pn) {
         this.maPhieuNhap = pn.getMaPhieuNhap();
         this.maNhanVien = pn.getMaNhanVien();
         this.maNCC = pn.getMaNCC();
         this.ngayNhap = pn.getNgayNhap();
+        this.tongTien = pn.getTongTien();
+    }
+
+    public int getTongTien() {
+        return tongTien;
+    }
+
+    public void setTongTien(int tongTien) {
+        this.tongTien = tongTien;
     }
 
     public String getMaPhieuNhap() {
