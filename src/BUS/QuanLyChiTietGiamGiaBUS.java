@@ -99,5 +99,12 @@ public class QuanLyChiTietGiamGiaBUS {
         return dsct;
 
     }
+    public int getChietKhau(String maGG, String maSP) {
+        for(ChiTietGiamGia ctgg : dschitietgg) {
+            if(ctgg.getMaGiamGia().equals(maGG) && ctgg.getMaSanPham().equals(maSP))
+                return ctgg.getChietKhau();
+        }
+        return 0;
+    }
 }
 

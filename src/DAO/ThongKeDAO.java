@@ -1,5 +1,6 @@
 package DAO;
 
+import DTO.ThongKeDoanhThuNhanVIen;
 import DTO.ThongKeKhachHang;
 import DTO.ThongKeSanPham;
 
@@ -54,6 +55,30 @@ public class ThongKeDAO {
                     int tongTien = row.getInt("TONGTIEN");
 
                     dstk.add(new ThongKeSanPham(maSP,tenSP,soLuong,tongTien));
+                }
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null,"Không thể xuất thống kê");
+        } finally {
+            thongke.closeConnect();
+        }
+        return dstk;
+    }
+
+    public ArrayList<ThongKeDoanhThuNhanVIen> getDTNV() {
+        ArrayList<ThongKeDoanhThuNhanVIen> dstk = new ArrayList<>();
+        thongke = new ConnectionDB();
+        try {
+            String query = "SELECT nhanvien.MANHANVIEN, nhanvien.HONV, nhanvien.TENNV, sum(chitiethoadon.SOLUONG) AS SOLUONG, SUM(chitiethoadon.THANHTIEN) AS TONGTIEN FROM hoadon JOIN nhanvien on hoadon.MANHANVIEN = nhanvien.MANHANVIEN JOIN chitiethoadon on hoadon.MAHOADON = chitiethoadon.MAHOADON GROUP by nhanvien.MANHANVIEN, nhanvien.HONV, nhanvien.TENNV";
+            ResultSet row = thongke.sqlQuery(query);
+            if(row != null) {
+                while (row.next()) {
+                    String maNV = row.getString("MANHANVIEN");
+                    String tenNV = row.getString("HONV") + " " + row.getString("TENNV");
+                    int soLuong = row.getInt("SOLUONG");
+                    int tongTien = row.getInt("TONGTIEN");
+
+                    dstk.add(new ThongKeDoanhThuNhanVIen(maNV,tenNV,soLuong,tongTien));
                 }
             }
         } catch (SQLException e) {

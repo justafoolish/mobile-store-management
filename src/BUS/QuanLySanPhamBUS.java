@@ -21,6 +21,22 @@ public class QuanLySanPhamBUS {
             dssp = qlspDAO.readDB();
         }
     }
+    public int getGiaTienbyMaSP(String maSP) {
+        for (SanPham sp : dssp) {
+            if(sp.getMaSP().equals(maSP)) {
+                return sp.getGiaTien();
+            }
+        }
+        return 0;
+    }
+    public int getSoLuongbyMaSP(String maSP) {
+        for (SanPham sp : dssp) {
+            if(sp.getMaSP().equals(maSP)) {
+                return sp.getSoLuong();
+            }
+        }
+        return 0;
+    }
     public String[] getHeader() {
         return new String[] {"Mã sản phẩm", "Tên sản phẩm", "Mã loại", "Mã nhà sản xuất", "Số lượng", "Giá tiền"};
     }

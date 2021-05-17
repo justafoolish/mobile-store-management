@@ -6,6 +6,7 @@
 package BUS;
 
 import DAO.QuanLyChuongTrinhGiamGiaDAO;
+import DTO.ChiTietGiamGia;
 import DTO.ChuongTrinhGiamGia;
 import DTO.SanPham;
 
@@ -102,4 +103,5 @@ public class QuanLyChuongTrinhGiamGiaBUS {
 
         return "GG"+String.valueOf(++max);
     }
+
 }

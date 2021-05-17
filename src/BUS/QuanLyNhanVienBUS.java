@@ -24,7 +24,7 @@ public class QuanLyNhanVienBUS {
     }
     public String[] getHeaders() {
         return new String[]{"Mã Nhân Viên", "Họ Nhân Viên", "Tên Nhân Viên",
-        "Giới Tính", "Email", "Địa Chỉ", "Chức Vụ", "SĐT", "Hình Ảnh", "Chú Thích"};
+        "Giới Tính", "Email", "Địa Chỉ", "Chức Vụ", "Lương", "SĐT", "Hình Ảnh", "Chú Thích"};
     }
     public void readDB() {
         if(dsnv.isEmpty()) {
@@ -54,8 +54,8 @@ public class QuanLyNhanVienBUS {
         return check;
     }
     
-    public Boolean themNhanVien(String maNV, String hoNV, String tenNV, String gioiTinh, String email, String diaChi, String chucVu, String SDT, String hinhAnh, String chuThich){
-        NhanVien nv = new NhanVien(hinhAnh, hoNV, tenNV, gioiTinh, email, diaChi, chucVu, SDT, hinhAnh, chuThich);
+    public Boolean themNhanVien(String maNV, String hoNV, String tenNV, String gioiTinh, String email, String diaChi, String chucVu, int luong, String SDT, String hinhAnh, String chuThich){
+        NhanVien nv = new NhanVien(hinhAnh, hoNV, tenNV, gioiTinh, email, diaChi, chucVu, luong, SDT, hinhAnh, chuThich);
         return themNhanVien(nv);
     }
 
@@ -72,8 +72,8 @@ public class QuanLyNhanVienBUS {
         return check;
     }
     
-    public Boolean updateNhanVien(String maNV, String hoNV, String tenNV, String gioiTinh, String email, String diaChi, String chucVu, String SDT, String hinhAnh, String chuThich) {
-        Boolean check = qlnvDAO.update(maNV, hoNV, tenNV, gioiTinh, email, diaChi, chucVu, SDT, hinhAnh, chuThich);
+    public Boolean updateNhanVien(String maNV, String hoNV, String tenNV, String gioiTinh, String email, String diaChi, String chucVu, int luong, String SDT, String hinhAnh, String chuThich) {
+        Boolean check = qlnvDAO.update(maNV, hoNV, tenNV, gioiTinh, email, diaChi, chucVu, luong, SDT, hinhAnh, chuThich);
 
         if(check) {
             dsnv.forEach((nv) -> {
@@ -84,6 +84,7 @@ public class QuanLyNhanVienBUS {
                     nv.setEmail(email);
                     nv.setDiaChi(diaChi);
                     nv.setChucVu(chucVu);
+                    nv.setLuong(luong);
                     nv.setSDT(SDT);
                     nv.setSDT(hinhAnh);
                     nv.setSDT(chuThich);

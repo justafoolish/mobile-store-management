@@ -87,5 +87,16 @@ public class HoaDon {
         this.tongTienGiamGia = tongTienGiamGia;
     }
 
-    
+    @Override
+    public String toString() {
+        return "HoaDon{" +
+                "maHoaDon='" + maHoaDon + '\'' +
+                ", maKhachHang='" + maKhachHang + '\'' +
+                ", maNhanVien='" + maNhanVien + '\'' +
+                ", maGiamGia='" + maGiamGia + '\'' +
+                ", ngayLap=" + ngayLap +
+                ", tongTien=" + tongTien +
+                ", tongTienGiamGia=" + tongTienGiamGia +
+                '}';
+    }
 }

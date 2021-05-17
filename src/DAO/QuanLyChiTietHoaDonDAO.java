@@ -75,12 +75,14 @@ public class QuanLyChiTietHoaDonDAO {
 
     public Boolean add(ChiTietHoaDon hd) {
         qlcthdconnection = new ConnectionDB();
-        Boolean ok = qlcthdconnection.sqlUpdate("INSERT INTO `chitiethoadon`(`MAHOADON`,`MASANPHAM`,`SOLUONG`,`THANHTIEN`,`CHIETKHAU`) VALUES ('"
-                + hd.getMaHoaDon()+ "','"
-                + hd.getMaSanPham()+ "','"
-                + hd.getSoLuong() + "','"
-                + hd.getThanhTien() + "');"
-                + hd.getChietKhau()+ "');");
+        String query = "INSERT INTO `chitiethoadon`(`MAHOADON`,`MASANPHAM`,`SOLUONG`,`THANHTIEN`,`CHIETKHAU`) VALUES ('"
+                + hd.getMaHoaDon()+ "', '"
+                + hd.getMaSanPham()+ "', '"
+                + hd.getSoLuong() + "', '"
+                + hd.getThanhTien() + "', '"
+                + hd.getChietKhau()+ "')";
+        System.out.println(query);
+        Boolean ok = qlcthdconnection.sqlUpdate(query);
         qlcthdconnection.closeConnect();
         return ok;
     }

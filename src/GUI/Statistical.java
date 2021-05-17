@@ -5,8 +5,10 @@
  */
 package GUI;
 
+import BUS.ExportExcel;
 import BUS.QuanLyChiTietHoaDonBus;
 import BUS.ThongKeBUS;
+import DTO.ThongKeDoanhThuNhanVIen;
 import DTO.ThongKeKhachHang;
 import DTO.ThongKeSanPham;
 import com.formdev.flatlaf.FlatLightLaf;
@@ -20,14 +22,17 @@ import java.util.Vector;
  */
 public class Statistical extends javax.swing.JFrame {
     private ThongKeBUS tkBUS;
+    private ExportExcel export;
     /**
      * Creates new form Statistical
      */
     public Statistical() {
         initComponents();
         tkBUS = new ThongKeBUS();
+        export = new ExportExcel();
         loadModelThongKeSP();
         loadModelThongKeKH();
+        loadModelDoanhThuNV();
     }
     public void loadModelThongKeSP() {
         DefaultTableModel model = new DefaultTableModel();
@@ -63,6 +68,22 @@ public class Statistical extends javax.swing.JFrame {
         }
         jTable1.setModel(model);
     }
+    public void loadModelDoanhThuNV() {
+        DefaultTableModel model = new DefaultTableModel();
+        if(model.getRowCount() == 0) {
+            model = new DefaultTableModel(tkBUS.headerDTNV(),0);
+        }
+        for(ThongKeDoanhThuNhanVIen dtnv : tkBUS.getDTNV()) {
+            Vector rowData = new Vector();
+            rowData.add(dtnv.getMaNhanVien());
+            rowData.add(dtnv.getTenNhanVien());
+            rowData.add(dtnv.getSoLuong());
+            rowData.add(dtnv.getTongTien());
+
+            model.addRow(rowData);
+        }
+        jTable5.setModel(model);
+    }
 
 
     /**
@@ -85,6 +106,9 @@ public class Statistical extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
+        jPanel11 = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jTable5 = new javax.swing.JTable();
         jPanel7 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -247,6 +271,37 @@ public class Statistical extends javax.swing.JFrame {
 
         jTabbedPane2.addTab("Chi tiết", jPanel8);
 
+        jTable5.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane5.setViewportView(jTable5);
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 1177, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
+                .addGap(0, 50, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 508, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jTabbedPane2.addTab("Chỉ tiêu nhân viên", jPanel11);
+
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Lọc"));
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/icons8_search_20px_1.png"))); // NOI18N
@@ -358,25 +413,13 @@ public class Statistical extends javax.swing.JFrame {
 
         jLabel3.setText("Từ ngày:");
 
-        jTextField1.setEditable(false);
-
-        jTextField2.setEditable(false);
-
         jLabel4.setText("Đến ngày:");
 
         jLabel5.setText("Tổng doanh thu:");
 
-        jTextField3.setEditable(false);
-
-        jTextField4.setEditable(false);
-
         jLabel6.setText("Tổng vốn ban đầu:");
 
         jLabel7.setText("Lợi nhuận:");
-
-        jTextField5.setEditable(false);
-
-        jTextField6.setEditable(false);
 
         jLabel9.setText("Thua lỗ:");
 
@@ -733,6 +776,10 @@ public class Statistical extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
+
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1ActionPerformed
@@ -741,17 +788,15 @@ public class Statistical extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        export.Export(jTable2);
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+        export.Export(jTable1);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -812,6 +857,7 @@ public class Statistical extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -824,12 +870,14 @@ public class Statistical extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
     private javax.swing.JTable jTable4;
+    private javax.swing.JTable jTable5;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField14;

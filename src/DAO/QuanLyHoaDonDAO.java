@@ -54,14 +54,16 @@ public class QuanLyHoaDonDAO {
     
     public Boolean add(HoaDon hd) {
         qlhdconnection = new ConnectionDB();
-        Boolean ok = qlhdconnection.sqlUpdate("INSERT INTO `hoadon`(`MAHOADON`,`MAKH`,`MANHANVIEN`,`MAGIAMGIA`,`NGAYLAP`,`TONGTIEN`,`TONGCHIETKHAU`) VALUES ('" 
-                + hd.getMaHoaDon()+ "','" 
-                + hd.getMaKhachHang()+ "','" 
-                + hd.getMaNhanVien()+ "','" 
-                + hd.getMaGiamGia()+ "','" 
-                + hd.getNgayLap()+ "','" 
-                + hd.getTongTien()+ "','" 
-                + hd.getTongTienGiamGia()+ "');");
+        String query = "INSERT INTO `hoadon`(`MAHOADON`,`MAKHACHHANG`,`MANHANVIEN`,`MAGIAMGIA`,`NGAYLAP`,`TONGTIEN`,`TONGCHIETKHAU`) VALUES ('"
+                + hd.getMaHoaDon()+ "','"
+                + hd.getMaKhachHang()+ "','"
+                + hd.getMaNhanVien()+ "','"
+                + hd.getMaGiamGia()+ "','"
+                + hd.getNgayLap()+ "','"
+                + hd.getTongTien()+ "','"
+                + hd.getTongTienGiamGia()+ "');";
+        System.out.println(query);
+        Boolean ok = qlhdconnection.sqlUpdate(query);
         qlhdconnection.closeConnect();
         return ok;
     }

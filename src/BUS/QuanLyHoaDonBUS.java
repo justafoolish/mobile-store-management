@@ -62,10 +62,12 @@ public class QuanLyHoaDonBUS {
     public Boolean xoaHD(String maHD) {
         Boolean check = qlhdDAO.delete(maHD);
         if(check) {
-            dshd.forEach((hd) -> {
-                if(hd.getMaHoaDon().equals(maHD))
-                    dshd.remove(hd);
-            });
+            for (int i = (dshd.size() - 1); i >= 0; i--) {
+                if (dshd.get(i).getMaHoaDon().equals(maHD)) {
+                    dshd.remove(i);
+                    return true;
+                }
+            }
             return true;
 
         }
@@ -82,5 +84,20 @@ public class QuanLyHoaDonBUS {
         }
 
         return "HD" + String.valueOf(++max);
+    }
+
+    public Boolean updateTongTien(String maHD, int tongTien) {
+        for(HoaDon hd : dshd) {
+            if(hd.getMaHoaDon().equals(maHD)) {
+                int curTotal = hd.getTongTien();
+                Boolean check = qlhdDAO.updateTongTien(maHD,curTotal+tongTien);
+                if(check) {
+                    hd.setTongTien(curTotal+tongTien);
+                    return true;
+                }
+
+            }
+        }
+        return false;
     }
 }
