@@ -37,6 +37,40 @@ public class QuanLyHoaDonBUS {
         }
         return null;
     }
+    public String getMaKH(String maHD) {
+        for(HoaDon hd : dshd) {
+            if(hd.getMaHoaDon().equals(maHD)) {
+                return hd.getMaKhachHang();
+            }
+        }
+        return null;
+    }
+
+    public int getTotal(String maHD) {
+        for(HoaDon hd : dshd) {
+            if(hd.getMaHoaDon().equals(maHD)) {
+                return hd.getTongTien();
+            }
+        }
+        return 0;
+    }
+    public int getDiscount(String maHD) {
+        for(HoaDon hd : dshd) {
+            if(hd.getMaHoaDon().equals(maHD)) {
+                return hd.getTongTienGiamGia();
+            }
+        }
+        return 0;
+    }
+
+    public String getMaNV(String maHD) {
+        for(HoaDon hd : dshd) {
+            if(hd.getMaHoaDon().equals(maHD)) {
+                return hd.getMaNhanVien();
+            }
+        }
+        return null;
+    }
 
     public Boolean themHD(HoaDon hd) {
         Boolean check = qlhdDAO.add(hd);

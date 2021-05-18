@@ -126,6 +126,24 @@ public class QuanLyNhanVienDAO {
         qlnvConnection.closeConnect();
         return ok;
     }
+    public Boolean checkLogin(String email, String sdt) {
+        qlnvConnection = new ConnectionDB();
+        String query = "SELECT COUNT(MANHANVIEN) AS isNULL FROM nhanvien WHERE EMAIL='"+ email +"' AND SDT='"+sdt+"'";
+        try {
+            ResultSet r = qlnvConnection.sqlQuery(query);
+            if (r != null) {
+                int count = r.getInt("isNULL");
+                if(count == 1) {
+                    return true;
+                }
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "-- ERROR! Lỗi đọc dữ liệu bảng nhân viên");
+        } finally {
+            qlnvConnection.closeConnect();
+        }
+        return false;
+    }
 
     public void close() {
         qlnvConnection.closeConnect();

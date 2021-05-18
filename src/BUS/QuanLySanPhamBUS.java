@@ -47,6 +47,14 @@ public class QuanLySanPhamBUS {
         }
         return null;
     }
+    public String getPName(String maSP) {
+        for(SanPham sanPham: dssp) {
+            if (sanPham.getMaSP().equals(maSP)) {
+                return sanPham.getTenSP();
+            }
+        }
+        return null;
+    }
     public Boolean themSP(SanPham sp) {
         Boolean check = qlspDAO.add(sp);
         if(check) {
@@ -102,7 +110,7 @@ public class QuanLySanPhamBUS {
     public String getLatestID() {
         int max=0;
         for(SanPham sp : dssp) {
-            String  latestID = sp.getMaSP();
+            String  latestID = sp.getMaSP().trim();
             int n = Integer.parseInt(latestID.substring(2));
             if(max < n) {
                 max = n;

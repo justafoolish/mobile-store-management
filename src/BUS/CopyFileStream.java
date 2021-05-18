@@ -7,6 +7,11 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 public class CopyFileStream {
+    String currentDirectory;
+
+    public CopyFileStream() {
+        currentDirectory = System.getProperty("user.dir");
+    }
 
     public static void main(String[] args) throws IOException {
 
@@ -27,14 +32,14 @@ public class CopyFileStream {
     }
     public void copyAnhSP(File source, String idTarget) throws IOException {
 
-        String path = "/Users/hactun/Documents/JAVA/PhoneManagement/src/GUI/SP/" + idTarget + ".png";
+        String path = currentDirectory + "/src/GUI/SP/" + idTarget + ".png";
         Path pathToFile = Paths.get(path);
         System.out.println(path);
         Files.copy(source.toPath(), pathToFile.toAbsolutePath(), StandardCopyOption.REPLACE_EXISTING);
     }
     public void copyAnhNV(File source, String idTarget) throws IOException {
 
-        String path = "/Users/hactun/Documents/JAVA/PhoneManagement/src/GUI/NV/" + idTarget + ".png";
+        String path = currentDirectory + "/src/GUI/NV/" + idTarget + ".png";
         Path pathToFile = Paths.get(path);
         System.out.println(path);
         Files.copy(source.toPath(), pathToFile.toAbsolutePath(), StandardCopyOption.REPLACE_EXISTING);

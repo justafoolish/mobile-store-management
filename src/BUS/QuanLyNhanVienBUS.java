@@ -39,6 +39,14 @@ public class QuanLyNhanVienBUS {
         }
         return null;
     }
+    public String getTenNV(String maNV) {
+        for(NhanVien nv : dsnv) {
+            if(nv.getMaNhanVien().equals(maNV)) {
+                return nv.getHo().trim() + " " + nv.getTen().trim();
+            }
+        }
+        return null;
+    }
     public ArrayList<NhanVien> timkiem(String manv, String tennv) {
         ArrayList<NhanVien> result = new ArrayList<>();
 
@@ -111,4 +119,43 @@ public class QuanLyNhanVienBUS {
 
          return "NV"+String.valueOf(++max);
     }
+
+    public ArrayList<NhanVien> searchByName(String tenNV) {
+        ArrayList<NhanVien> result = new ArrayList<>();
+        for(NhanVien nv : dsnv) {
+            String name = nv.getHo().trim() + " " + nv.getTen().trim();
+            if (name.toLowerCase().contains(tenNV.toLowerCase())) {
+                result.add(nv);
+            }
+        }
+        return result;
+    }
+
+    public ArrayList<NhanVien> searchByID(String maNV) {
+        ArrayList<NhanVien> result = new ArrayList<>();
+        for(NhanVien ncc : dsnv) {
+            if (ncc.getMaNhanVien().toLowerCase().contains(maNV.toLowerCase())) {
+                result.add(ncc);
+            }
+        }
+        return result;
+    }
+    public ArrayList<NhanVien> search(String tenNV, String maNV) {
+        ArrayList<NhanVien> result = new ArrayList<>();
+        for(NhanVien nv : dsnv) {
+            if(nv.getMaNhanVien().toLowerCase().contains(maNV.toLowerCase()) && nv.getTen().toLowerCase().contains(tenNV.toLowerCase())) {
+                result.add(nv);
+            }
+        }
+        return result;
+    }
+    public Boolean checkLogin(String email, String sdt) {
+        for(NhanVien nv: dsnv) {
+            if(nv.getEmail().toLowerCase().equals(email) && nv.getSDT().equals(sdt)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

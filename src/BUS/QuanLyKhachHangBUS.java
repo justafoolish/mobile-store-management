@@ -31,6 +31,16 @@ public class QuanLyKhachHangBUS {
         }
         return null;
     }
+
+    public String getTenKH(String maKH) {
+        for(KhachHang kh : dskh) {
+            if(kh.getMaKhachHang().equals(maKH)) {
+                return kh.getHo().trim() + " " + kh.getTen().trim();
+            }
+        }
+        return null;
+    }
+
     public ArrayList<KhachHang> timkiem(String makh, String tenKh, String sdt) {
         ArrayList<KhachHang> result = new ArrayList<>();
 

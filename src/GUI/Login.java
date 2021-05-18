@@ -5,20 +5,23 @@
  */
 package GUI;
 
+import BUS.QuanLyNhanVienBUS;
 import com.formdev.flatlaf.FlatLightLaf;
-import javax.swing.UIManager;
+
+import javax.swing.*;
 
 /**
  *
  * @author Gyn
  */
 public class Login extends javax.swing.JFrame {
-
+    private QuanLyNhanVienBUS qlnvBUS;
     /**
      * Creates new form Login
      */
     public Login() {
         initComponents();
+        qlnvBUS = new QuanLyNhanVienBUS();
     }
 
     /**
@@ -59,7 +62,7 @@ public class Login extends javax.swing.JFrame {
         LogTitleLayout.setHorizontalGroup(
             LogTitleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LogTitleLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(74, Short.MAX_VALUE)
                 .addComponent(LoginTitle)
                 .addGap(60, 60, 60))
         );
@@ -68,24 +71,20 @@ public class Login extends javax.swing.JFrame {
             .addGroup(LogTitleLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(LoginTitle)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         LogContent.setBackground(new java.awt.Color(192, 241, 236));
 
         lbLogPassword.setFont(new java.awt.Font("Markazi Text Bold", 1, 20)); // NOI18N
-        lbLogPassword.setForeground(new java.awt.Color(0, 0, 0));
         lbLogPassword.setText("Mật khẩu :");
         lbLogPassword.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
 
         lbLogLogin.setFont(new java.awt.Font("Markazi Text Bold", 1, 20)); // NOI18N
-        lbLogLogin.setForeground(new java.awt.Color(0, 0, 0));
         lbLogLogin.setText("Tài khoản : ");
         lbLogLogin.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
 
-        tfLogUser.setBackground(new java.awt.Color(255, 255, 255));
         tfLogUser.setFont(new java.awt.Font("Exo 2 Light", 0, 12)); // NOI18N
-        tfLogUser.setForeground(new java.awt.Color(0, 0, 0));
         tfLogUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfLogUserActionPerformed(evt);
@@ -105,7 +104,6 @@ public class Login extends javax.swing.JFrame {
 
         cbShowPassword.setBackground(new java.awt.Color(192, 241, 236));
         cbShowPassword.setFont(new java.awt.Font("Exo 2 Light", 1, 12)); // NOI18N
-        cbShowPassword.setForeground(new java.awt.Color(0, 0, 0));
         cbShowPassword.setText("Hiện mật khẩu");
         cbShowPassword.setFocusPainted(false);
         cbShowPassword.setFocusable(false);
@@ -115,45 +113,45 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        jPasswordField1.setBackground(new java.awt.Color(255, 255, 255));
         jPasswordField1.setFont(new java.awt.Font("Markazi Text Bold", 0, 12)); // NOI18N
-        jPasswordField1.setForeground(new java.awt.Color(0, 0, 0));
 
         javax.swing.GroupLayout LogContentLayout = new javax.swing.GroupLayout(LogContent);
         LogContent.setLayout(LogContentLayout);
         LogContentLayout.setHorizontalGroup(
             LogContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(LogContentLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addGroup(LogContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(cbShowPassword, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, LogContentLayout.createSequentialGroup()
-                        .addGroup(LogContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbLogPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbLogLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(LogContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(tfLogUser, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                            .addComponent(jPasswordField1))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LogContentLayout.createSequentialGroup()
-                .addContainerGap(56, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(49, 49, 49))
+            .addGroup(LogContentLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(LogContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(LogContentLayout.createSequentialGroup()
+                        .addComponent(cbShowPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(LogContentLayout.createSequentialGroup()
+                        .addGroup(LogContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbLogLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(LogContentLayout.createSequentialGroup()
+                                .addComponent(lbLogPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(LogContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPasswordField1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfLogUser, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(64, 64, 64))))
         );
         LogContentLayout.setVerticalGroup(
             LogContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LogContentLayout.createSequentialGroup()
                 .addContainerGap(29, Short.MAX_VALUE)
-                .addGroup(LogContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(LogContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbLogLogin)
-                    .addGroup(LogContentLayout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addComponent(tfLogUser)))
-                .addGap(18, 18, 18)
-                .addGroup(LogContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPasswordField1)
-                    .addComponent(lbLogPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(tfLogUser))
+                .addGap(17, 17, 17)
+                .addGroup(LogContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbLogPassword)
+                    .addComponent(jPasswordField1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cbShowPassword)
                 .addGap(18, 18, 18)
@@ -165,10 +163,8 @@ public class Login extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(LogContent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(LogTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
+            .addComponent(LogTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE)
+            .addComponent(LogContent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -187,10 +183,20 @@ public class Login extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
-        Menu menuFrame = new Menu();
-        menuFrame.setVisible(true);
-        menuFrame.pack();
-        this.setVisible(false);
+        String email = tfLogUser.getText() ;
+        char[] sdt = jPasswordField1.getPassword();
+        String pass = String.valueOf(sdt);
+        if (qlnvBUS.checkLogin(email,pass)) {
+            JOptionPane.showMessageDialog(null, "Đăng nhập thành công");
+            Menu menuFrame = new Menu();
+            menuFrame.setVisible(true);
+            menuFrame.pack();
+            this.setVisible(false);
+        }
+        else {
+            JOptionPane.showMessageDialog(null,"Đăng nhập thất bại");
+        }
+
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void cbShowPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbShowPasswordActionPerformed

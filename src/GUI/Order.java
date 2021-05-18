@@ -760,6 +760,8 @@ public class Order extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         Payment paymentFrame = new Payment();
+        paymentFrame.setUpReceipt(jTextField1.getText().trim());
+        paymentFrame.print();
         paymentFrame.setVisible(true);
         paymentFrame.pack();
     }//GEN-LAST:event_jButton1ActionPerformed

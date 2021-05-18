@@ -957,6 +957,77 @@ QuanLyNhanVienBUS qlnvBUS;
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
+        String tenNV = jTextField6.getText().trim();
+        String maNV = jTextField4.getText().trim();
+        if(!tenNV.equals("") && !maNV.equals("")) {
+            DefaultTableModel model = new DefaultTableModel();
+            if(model.getRowCount() == 0) {
+                model = new DefaultTableModel(qlnvBUS.getHeaders(),0);
+            }
+            for(NhanVien nv : qlnvBUS.search(tenNV,maNV)) {
+                Vector rowData = new Vector();
+                rowData.add(nv.getMaNhanVien());
+                rowData.add(nv.getHo());
+                rowData.add(nv.getTen());
+                rowData.add(nv.getGioiTinh());
+                rowData.add(nv.getEmail());
+                rowData.add(nv.getDiaChi());
+                rowData.add(nv.getChucVu());
+                rowData.add(nv.getLuong());
+                rowData.add(nv.getSDT());
+                rowData.add(nv.getHinhAnh());
+                rowData.add(nv.getChuThich());
+
+                model.addRow(rowData);
+            }
+            tableNV.setModel(model);
+        }
+        else if(!tenNV.equals("")) {
+            DefaultTableModel model = new DefaultTableModel();
+            if(model.getRowCount() == 0) {
+                model = new DefaultTableModel(qlnvBUS.getHeaders(),0);
+            }
+            for(NhanVien nv : qlnvBUS.searchByName(tenNV)) {
+                Vector rowData = new Vector();
+                rowData.add(nv.getMaNhanVien());
+                rowData.add(nv.getHo());
+                rowData.add(nv.getTen());
+                rowData.add(nv.getGioiTinh());
+                rowData.add(nv.getEmail());
+                rowData.add(nv.getDiaChi());
+                rowData.add(nv.getChucVu());
+                rowData.add(nv.getLuong());
+                rowData.add(nv.getSDT());
+                rowData.add(nv.getHinhAnh());
+                rowData.add(nv.getChuThich());
+
+                model.addRow(rowData);
+            }
+            tableNV.setModel(model);
+        } else {
+            DefaultTableModel model = new DefaultTableModel();
+            if(model.getRowCount() == 0) {
+                model = new DefaultTableModel(qlnvBUS.getHeaders(),0);
+            }
+            for(NhanVien nv : qlnvBUS.searchByID(maNV)) {
+                Vector rowData = new Vector();
+                rowData.add(nv.getMaNhanVien());
+                rowData.add(nv.getHo());
+                rowData.add(nv.getTen());
+                rowData.add(nv.getGioiTinh());
+                rowData.add(nv.getEmail());
+                rowData.add(nv.getDiaChi());
+                rowData.add(nv.getChucVu());
+                rowData.add(nv.getLuong());
+                rowData.add(nv.getSDT());
+                rowData.add(nv.getHinhAnh());
+                rowData.add(nv.getChuThich());
+
+                model.addRow(rowData);
+            }
+            tableNV.setModel(model);
+        }
+
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
