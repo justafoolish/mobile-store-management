@@ -10,6 +10,7 @@ import DAO.QuanLyNhaSanXuatDAO;
 import DTO.*;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Vector;
@@ -33,6 +34,7 @@ public class Product_Manager extends javax.swing.JFrame {
     private QuanLyPhieuNhapBUS qlpnBUS;
     private QuanLyNhanVienBUS qlnsvBUS;
     private QuanLyNhaCungCapBUS qlnccBUS;
+    private CopyFileStream fileAction;
 
 
 
@@ -50,6 +52,7 @@ public class Product_Manager extends javax.swing.JFrame {
         qlctpnBUS = new QuanLyChiTietPhieuNhapBUS();
         qlnsvBUS = new QuanLyNhanVienBUS();
         qlnccBUS = new QuanLyNhaCungCapBUS();
+        fileAction = new CopyFileStream();
 
         loadModalNSX();
         loadModelSP();
@@ -1565,14 +1568,18 @@ public class Product_Manager extends javax.swing.JFrame {
     private void btnChooseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChooseActionPerformed
         // TODO add your handling code here:
         JFileChooser fileChooser = new JFileChooser();
-        FileNameExtensionFilter imageFilter = new FileNameExtensionFilter("Hình ảnh","jpg","png");
-        fileChooser.setFileFilter(imageFilter);
-        fileChooser.setMultiSelectionEnabled(false);
+
 
         int x = fileChooser.showDialog(this, "Chọn hình");
         if(x == JFileChooser.APPROVE_OPTION){
-            File f = fileChooser.getSelectedFile();
-            lbImage.setIcon(new ImageIcon(f.getAbsolutePath()));
+            File sourceFile = fileChooser.getSelectedFile();
+            lbImage.setIcon(new ImageIcon(sourceFile.getAbsolutePath()));
+            String id = jTextField1.getText();
+            try {
+                fileAction.copyAnhSP(sourceFile,id);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
     }//GEN-LAST:event_btnChooseActionPerformed
