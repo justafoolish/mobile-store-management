@@ -73,12 +73,12 @@ public class Provide_Manager extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         tfEmail = new javax.swing.JTextField();
+        tfSDT = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         tfTenNCC = new javax.swing.JTextField();
         tfMaNCC = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        tfSDT = new javax.swing.JTextField();
         NCCButtonPanel = new javax.swing.JPanel();
         btnEdit = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
@@ -88,6 +88,7 @@ public class Provide_Manager extends javax.swing.JFrame {
         tableNCC = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Quản lý nhà cung cấp");
         setResizable(false);
 
         jTabbedPane2.setBackground(new java.awt.Color(0, 153, 255));
@@ -100,6 +101,11 @@ public class Provide_Manager extends javax.swing.JFrame {
 
         btnLoc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/icons8_search_20px_1.png"))); // NOI18N
         btnLoc.setText("Lọc");
+        btnLoc.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnLocMouseClicked(evt);
+            }
+        });
         btnLoc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLocActionPerformed(evt);
@@ -124,8 +130,8 @@ public class Provide_Manager extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jTextField7))))
                     .addGroup(NCCFillterPanelLayout.createSequentialGroup()
-                        .addGap(97, 97, 97)
-                        .addComponent(btnLoc)))
+                        .addGap(76, 76, 76)
+                        .addComponent(btnLoc, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         NCCFillterPanelLayout.setVerticalGroup(
@@ -144,7 +150,7 @@ public class Provide_Manager extends javax.swing.JFrame {
                 .addContainerGap(26, Short.MAX_VALUE))
         );
 
-        NCCInputPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Input"));
+        NCCInputPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Nhà cung cấp"));
 
         tfDiaChi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -162,6 +168,12 @@ public class Provide_Manager extends javax.swing.JFrame {
             }
         });
 
+        tfSDT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfSDTActionPerformed(evt);
+            }
+        });
+
         jLabel4.setText("SĐT:");
 
         jLabel3.setText("Tên NCC:");
@@ -172,7 +184,6 @@ public class Provide_Manager extends javax.swing.JFrame {
             }
         });
 
-        tfMaNCC.setEditable(false);
         tfMaNCC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfMaNCCActionPerformed(evt);
@@ -181,41 +192,39 @@ public class Provide_Manager extends javax.swing.JFrame {
 
         jLabel2.setText("Mã NCC:");
 
-        tfSDT.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfSDTActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout NCCInputPanelLayout = new javax.swing.GroupLayout(NCCInputPanel);
         NCCInputPanel.setLayout(NCCInputPanelLayout);
         NCCInputPanelLayout.setHorizontalGroup(
             NCCInputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(NCCInputPanelLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addGroup(NCCInputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(NCCInputPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tfDiaChi))
-                    .addGroup(NCCInputPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tfEmail))
-                    .addGroup(NCCInputPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tfTenNCC))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, NCCInputPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tfSDT))
-                    .addGroup(NCCInputPanelLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(NCCInputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(NCCInputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, NCCInputPanelLayout.createSequentialGroup()
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(tfTenNCC, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(NCCInputPanelLayout.createSequentialGroup()
+                            .addGroup(NCCInputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(NCCInputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(NCCInputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(NCCInputPanelLayout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(tfDiaChi, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, NCCInputPanelLayout.createSequentialGroup()
+                                        .addGap(12, 12, 12)
+                                        .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, NCCInputPanelLayout.createSequentialGroup()
+                                    .addGap(12, 12, 12)
+                                    .addComponent(tfSDT, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, NCCInputPanelLayout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tfMaNCC, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(23, 23, 23))
+                        .addComponent(tfMaNCC, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         NCCInputPanelLayout.setVerticalGroup(
             NCCInputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -230,17 +239,17 @@ public class Provide_Manager extends javax.swing.JFrame {
                     .addComponent(tfTenNCC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(NCCInputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(tfSDT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(NCCInputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(NCCInputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(NCCInputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(tfDiaChi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(NCCInputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfSDT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         NCCButtonPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Chức năng"));
@@ -281,14 +290,14 @@ public class Provide_Manager extends javax.swing.JFrame {
         NCCButtonPanel.setLayout(NCCButtonPanelLayout);
         NCCButtonPanelLayout.setHorizontalGroup(
             NCCButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, NCCButtonPanelLayout.createSequentialGroup()
-                .addContainerGap(25, Short.MAX_VALUE)
+            .addGroup(NCCButtonPanelLayout.createSequentialGroup()
+                .addGap(21, 21, 21)
                 .addGroup(NCCButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38)
-                .addGroup(NCCButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addGroup(NCCButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnReset))
                 .addGap(24, 24, 24))
         );
@@ -312,12 +321,11 @@ public class Provide_Manager extends javax.swing.JFrame {
             NCCContentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(NCCContentPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(NCCContentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(NCCContentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(NCCButtonPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(NCCFillterPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(NCCInputPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addGroup(NCCContentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(NCCButtonPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(NCCFillterPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(NCCInputPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         NCCContentPanelLayout.setVerticalGroup(
             NCCContentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -331,22 +339,20 @@ public class Provide_Manager extends javax.swing.JFrame {
                 .addGap(60, 60, 60))
         );
 
+        tableNCC.setAutoCreateRowSorter(true);
         tableNCC.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Mã Nhà Cung Cấp", "Tên Nhà Cung Cấp", "Email", "Địa Chỉ", "SĐT"
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tableNCC.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tableNCCMouseClicked(evt);
-            }
-        });
+        tableNCC.setShowHorizontalLines(true);
+        tableNCC.setShowVerticalLines(true);
         jScrollPane1.setViewportView(tableNCC);
 
         javax.swing.GroupLayout NCCPanelLayout = new javax.swing.GroupLayout(NCCPanel);
@@ -355,10 +361,10 @@ public class Provide_Manager extends javax.swing.JFrame {
             NCCPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(NCCPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(NCCContentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 835, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(NCCContentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 876, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(15, Short.MAX_VALUE))
         );
         NCCPanelLayout.setVerticalGroup(
             NCCPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -378,7 +384,7 @@ public class Provide_Manager extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1201, Short.MAX_VALUE)
+            .addComponent(jTabbedPane2)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -454,67 +460,6 @@ public class Provide_Manager extends javax.swing.JFrame {
         loadModal();
     }//GEN-LAST:event_btnResetActionPerformed
 
-    private void btnLocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLocActionPerformed
-        // TODO add your handling code here:
-
-        String tenncc = jTextField7.getText().trim();
-        String mancc = jTextField6.getText().trim();
-        if(!tenncc.equals("") && !mancc.equals("")) {
-            DefaultTableModel resultModel = new DefaultTableModel();
-            if (resultModel.getRowCount() == 0) {
-                resultModel = new DefaultTableModel(qlnccBUS.getHeaders(), 0);
-            }
-            for (NhaCungCap ncc : qlnccBUS.search(tenncc,mancc)) {
-                Vector rowData = new Vector();
-                rowData.add(ncc.getMaNCC());
-                rowData.add(ncc.getTenNCC());
-                rowData.add(ncc.getEmail());
-                rowData.add(ncc.getDiaChi());
-                rowData.add(ncc.getSDT());
-
-
-                resultModel.addRow(rowData);
-            }
-            tableNCC.setModel(resultModel);
-        }
-        else if(!tenncc.equals("")) {
-            DefaultTableModel resultModel = new DefaultTableModel();
-            if (resultModel.getRowCount() == 0) {
-                resultModel = new DefaultTableModel(qlnccBUS.getHeaders(), 0);
-            }
-            for (NhaCungCap ncc : qlnccBUS.searchByName(tenncc)) {
-                Vector rowData = new Vector();
-                rowData.add(ncc.getMaNCC());
-                rowData.add(ncc.getTenNCC());
-                rowData.add(ncc.getEmail());
-                rowData.add(ncc.getDiaChi());
-                rowData.add(ncc.getSDT());
-
-
-                resultModel.addRow(rowData);
-            }
-            tableNCC.setModel(resultModel);
-        }
-        else if(!mancc.equals("")) {
-            DefaultTableModel resultModel = new DefaultTableModel();
-            if (resultModel.getRowCount() == 0) {
-                resultModel = new DefaultTableModel(qlnccBUS.getHeaders(), 0);
-            }
-            for (NhaCungCap ncc : qlnccBUS.searchByID(mancc)) {
-                Vector rowData = new Vector();
-                rowData.add(ncc.getMaNCC());
-                rowData.add(ncc.getTenNCC());
-                rowData.add(ncc.getEmail());
-                rowData.add(ncc.getDiaChi());
-                rowData.add(ncc.getSDT());
-
-
-                resultModel.addRow(rowData);
-            }
-            tableNCC.setModel(resultModel);
-        }
-    }//GEN-LAST:event_btnLocActionPerformed
-
     private void tfTenNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfTenNCCActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfTenNCCActionPerformed
@@ -541,6 +486,68 @@ public class Provide_Manager extends javax.swing.JFrame {
         tfSDT.setText(tableNCC.getModel().getValueAt(i,4).toString());
     }//GEN-LAST:event_tableNCCMouseClicked
 
+    private void btnLocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLocActionPerformed
+        // TODO add your handling code here:
+
+        String tenncc = jTextField7.getText().trim();
+        String mancc = jTextField6.getText().trim();
+        if(!tenncc.equals("") && !mancc.equals("")) {
+            DefaultTableModel resultModel = new DefaultTableModel();
+            if (resultModel.getRowCount() == 0) {
+                resultModel = new DefaultTableModel(qlnccBUS.getHeaders(), 0);
+            }
+            for (NhaCungCap ncc : qlnccBUS.search(tenncc,mancc)) {
+                Vector rowData = new Vector();
+                rowData.add(ncc.getMaNCC());
+                rowData.add(ncc.getTenNCC());
+                rowData.add(ncc.getEmail());
+                rowData.add(ncc.getDiaChi());
+                rowData.add(ncc.getSDT());
+
+                resultModel.addRow(rowData);
+            }
+            tableNCC.setModel(resultModel);
+        }
+        else if(!tenncc.equals("")) {
+            DefaultTableModel resultModel = new DefaultTableModel();
+            if (resultModel.getRowCount() == 0) {
+                resultModel = new DefaultTableModel(qlnccBUS.getHeaders(), 0);
+            }
+            for (NhaCungCap ncc : qlnccBUS.searchByName(tenncc)) {
+                Vector rowData = new Vector();
+                rowData.add(ncc.getMaNCC());
+                rowData.add(ncc.getTenNCC());
+                rowData.add(ncc.getEmail());
+                rowData.add(ncc.getDiaChi());
+                rowData.add(ncc.getSDT());
+
+                resultModel.addRow(rowData);
+            }
+            tableNCC.setModel(resultModel);
+        }
+        else if(!mancc.equals("")) {
+            DefaultTableModel resultModel = new DefaultTableModel();
+            if (resultModel.getRowCount() == 0) {
+                resultModel = new DefaultTableModel(qlnccBUS.getHeaders(), 0);
+            }
+            for (NhaCungCap ncc : qlnccBUS.searchByID(mancc)) {
+                Vector rowData = new Vector();
+                rowData.add(ncc.getMaNCC());
+                rowData.add(ncc.getTenNCC());
+                rowData.add(ncc.getEmail());
+                rowData.add(ncc.getDiaChi());
+                rowData.add(ncc.getSDT());
+
+                resultModel.addRow(rowData);
+            }
+            tableNCC.setModel(resultModel);
+        }
+    }//GEN-LAST:event_btnLocActionPerformed
+
+    private void btnLocMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLocMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLocMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -563,6 +570,7 @@ public class Provide_Manager extends javax.swing.JFrame {
                 Provide_Manager frame = new Provide_Manager();
                 Menu menuFrame = new Menu();
                 if(menuFrame.checkLogin()) {
+                    frame.setLocationRelativeTo(null);
                     frame.setVisible(true);
                     menuFrame.setVisible(false);
                     menuFrame.dispose();
@@ -571,6 +579,7 @@ public class Provide_Manager extends javax.swing.JFrame {
                     menuFrame.setVisible(false);
                     menuFrame.dispose();
                     Login login = new Login();
+                    login.setLocationRelativeTo(null);
                     login.setVisible(true);
                     login.pack();
                 }

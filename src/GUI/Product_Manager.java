@@ -7,14 +7,13 @@ package GUI;
 
 import BUS.*;
 import DAO.QuanLyNhaSanXuatDAO;
-import DTO.LoaiSanPham;
-import DTO.NhaSanXuat;
-import DTO.SanPham;
+import DTO.*;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.FileDialog;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
@@ -35,6 +34,10 @@ public class Product_Manager extends javax.swing.JFrame {
     private QuanLyNhaSanXuatBUS qlnsxBUS;
     private QuanLySanPhamBUS qlspBUS;
     private QuanLyLoaiSanPhamBUS qllspBUS;
+    private QuanLyPhieuNhapBUS qlpnBUS;
+    private QuanLyChiTietPhieuNhapBUS qlctpnBUS;
+    private QuanLyNhanVienBUS qlnsvBUS;
+    private QuanLyNhaCungCapBUS qlnccBUS;
     private CopyFileStream fileAction;
     private ExportExcel excelAction;
     private ImportExcel importAction;
@@ -51,6 +54,10 @@ public class Product_Manager extends javax.swing.JFrame {
         qlnsxBUS = new QuanLyNhaSanXuatBUS();
         qlspBUS = new QuanLySanPhamBUS();
         qllspBUS = new QuanLyLoaiSanPhamBUS();
+        qlctpnBUS = new QuanLyChiTietPhieuNhapBUS();
+        qlnsvBUS = new QuanLyNhanVienBUS();
+        qlnccBUS = new QuanLyNhaCungCapBUS();
+        qlpnBUS = new QuanLyPhieuNhapBUS();
         fileAction = new CopyFileStream();
         excelAction = new ExportExcel();
         importAction = new ImportExcel();
@@ -61,8 +68,28 @@ public class Product_Manager extends javax.swing.JFrame {
         initComboNSX();
         loadModalLSP();
         initComboLSP();
+        loadModalPN();
+        loadModalCTPN();
+        initComboNCC();
+        initComboNV();
+        jTextField15.setText("0");
+        jTextField15.setEditable(false);
+        jTextField16.setEditable(false);
+
 
         // Kết thúc
+    }
+    public void initComboNV() {
+        jComboBox8.removeAllItems();
+        for(NhanVien nv : qlnsvBUS.getDsnv()) {
+            jComboBox8.addItem(nv.getMaNhanVien());
+        }
+    }
+    public void initComboNCC() {
+        jComboBox7.removeAllItems();
+        for(NhaCungCap ncc : qlnccBUS.getDsncc()) {
+            jComboBox7.addItem(ncc.getMaNCC());
+        }
     }
     //Bảng NSX
     public void initComboNSX() {
@@ -206,6 +233,66 @@ public class Product_Manager extends javax.swing.JFrame {
         jTextField10.setText(qllspBUS.getLatestID());
 
     }
+    public void loadModalPN() {
+        DefaultTableModel model = new DefaultTableModel();
+
+        if (model.getRowCount() == 0) {
+            model = new DefaultTableModel(qlpnBUS.getHeaders(), 0);
+        }
+        qlpnBUS.readDB();
+        for (PhieuNhap pn : qlpnBUS.getDspn()) {
+            Vector rowData = new Vector();
+            rowData.add(pn.getMaPhieuNhap());
+            rowData.add(pn.getMaNhanVien());
+            rowData.add(pn.getMaNCC());
+            rowData.add(pn.getNgayNhap());
+            rowData.add(pn.getTongTien());
+
+            model.addRow(rowData);
+        }
+        jTable4.setModel(model);
+        jTextField12.setText(qlpnBUS.setMaPN());
+        jTextField15.setText("0");
+
+
+    }
+    public void loadModalCTPN() {
+        DefaultTableModel model = new DefaultTableModel();
+
+        if (model.getRowCount() == 0) {
+            model = new DefaultTableModel(qlctpnBUS.getHeaders(), 0);
+        }
+        qlctpnBUS.readDB();
+        for (ChiTietPhieuNhap ct : qlctpnBUS.getDSChiTietPN()) {
+            Vector rowData = new Vector();
+            rowData.add(ct.getMaPhieuNhap());
+            rowData.add(ct.getMaSanPham());
+            rowData.add(ct.getSoLuong());
+            rowData.add(ct.getDonGia());
+
+            model.addRow(rowData);
+        }
+        jTable3.setModel(model);
+    }
+
+    public void loadModalCTPN(String maPN) {
+        DefaultTableModel model = new DefaultTableModel();
+
+        if (model.getRowCount() == 0) {
+            model = new DefaultTableModel(qlctpnBUS.getHeaders(), 0);
+        }
+        qlctpnBUS.readDB();
+        for (ChiTietPhieuNhap ct : qlctpnBUS.getAllChiTiet(maPN)) {
+            Vector rowData = new Vector();
+            rowData.add(ct.getMaPhieuNhap());
+            rowData.add(ct.getMaSanPham());
+            rowData.add(ct.getSoLuong());
+            rowData.add(ct.getDonGia());
+
+            model.addRow(rowData);
+        }
+        jTable3.setModel(model);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -263,19 +350,18 @@ public class Product_Manager extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         jTextField12 = new javax.swing.JTextField();
         jLabel22 = new javax.swing.JLabel();
-        jTextField13 = new javax.swing.JTextField();
         jLabel23 = new javax.swing.JLabel();
         jComboBox3 = new javax.swing.JComboBox<>();
         jComboBox4 = new javax.swing.JComboBox<>();
         jComboBox5 = new javax.swing.JComboBox<>();
         jLabel24 = new javax.swing.JLabel();
-        jTextField14 = new javax.swing.JTextField();
         jLabel25 = new javax.swing.JLabel();
         jTextField15 = new javax.swing.JTextField();
         jButton11 = new javax.swing.JButton();
-        jButton12 = new javax.swing.JButton();
         jButton13 = new javax.swing.JButton();
         jButton14 = new javax.swing.JButton();
+        jComboBox7 = new javax.swing.JComboBox<>();
+        jComboBox8 = new javax.swing.JComboBox<>();
         jPanel6 = new javax.swing.JPanel();
         jLabel26 = new javax.swing.JLabel();
         jTextField16 = new javax.swing.JTextField();
@@ -329,11 +415,12 @@ public class Product_Manager extends javax.swing.JFrame {
         btnRefesh = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Sản phẩm");
+        setTitle("Quản lý sản phẩm");
         setResizable(false);
 
         JTabMain_Product.setPreferredSize(new java.awt.Dimension(1200, 700));
 
+        ProductTab.setBackground(new java.awt.Color(243, 243, 243));
         ProductTab.setName(""); // NOI18N
         ProductTab.setVerifyInputWhenFocusTarget(false);
 
@@ -427,7 +514,7 @@ public class Product_Manager extends javax.swing.JFrame {
                             .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(46, 46, 46)
                         .addGroup(inforPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(inforPanelLayout.createSequentialGroup()
                         .addContainerGap()
@@ -528,7 +615,6 @@ public class Product_Manager extends javax.swing.JFrame {
             }
         ));
         jTableProduct.setShowGrid(true);
-        jTableProduct.setShowHorizontalLines(false);
         jTableProduct.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableProductMouseClicked(evt);
@@ -638,7 +724,7 @@ public class Product_Manager extends javax.swing.JFrame {
                         .addGap(40, 40, 40))
                     .addGroup(ProductTabLayout.createSequentialGroup()
                         .addComponent(imagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 170, Short.MAX_VALUE)
                         .addComponent(jButton19, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(36, 36, 36)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -650,7 +736,7 @@ public class Product_Manager extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(ProductTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(ProductTabLayout.createSequentialGroup()
-                        .addComponent(inforPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 494, Short.MAX_VALUE)
+                        .addComponent(inforPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(findPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(ProductTabLayout.createSequentialGroup()
@@ -670,8 +756,11 @@ public class Product_Manager extends javax.swing.JFrame {
 
         JTabMain_Product.addTab("Sản phẩm", ProductTab);
 
+        jPanel4.setBackground(new java.awt.Color(243, 243, 243));
+
         jLabel18.setText("Chi tiết phiếu nhập hàng:");
 
+        jTable4.setAutoCreateRowSorter(true);
         jTable4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -683,8 +772,14 @@ public class Product_Manager extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable4MouseClicked(evt);
+            }
+        });
         jScrollPane5.setViewportView(jTable4);
 
+        jTable3.setAutoCreateRowSorter(true);
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -696,6 +791,11 @@ public class Product_Manager extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable3MouseClicked(evt);
+            }
+        });
         jScrollPane4.setViewportView(jTable3);
 
         jLabel19.setText("Thông tin phiếu nhập hàng:");
@@ -732,15 +832,17 @@ public class Product_Manager extends javax.swing.JFrame {
 
         jLabel21.setText("Mã phiếu nhập:");
 
+        jTextField12.setEditable(false);
+
         jLabel22.setText("Mã nhân viên:");
 
         jLabel23.setText("Ngày nhập:");
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7" }));
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2018", "2019", "2020", "2021", "2022" }));
+        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024" }));
 
-        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
+        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
         jComboBox5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox5ActionPerformed(evt);
@@ -748,12 +850,6 @@ public class Product_Manager extends javax.swing.JFrame {
         });
 
         jLabel24.setText("Mã NCC:");
-
-        jTextField14.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField14ActionPerformed(evt);
-            }
-        });
 
         jLabel25.setText("Tổng tiền:");
 
@@ -765,12 +861,19 @@ public class Product_Manager extends javax.swing.JFrame {
 
         jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/icons8_add_20px.png"))); // NOI18N
         jButton11.setText("Thêm");
-
-        jButton12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/icons8_maintenance_20px.png"))); // NOI18N
-        jButton12.setText("Sửa");
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
 
         jButton13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/icons8_cancel_20px.png"))); // NOI18N
         jButton13.setText("Xoá");
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
+            }
+        });
 
         jButton14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/icons8_restart_20px_1.png"))); // NOI18N
         jButton14.setText("Làm mới");
@@ -780,6 +883,10 @@ public class Product_Manager extends javax.swing.JFrame {
             }
         });
 
+        jComboBox7.setFocusTraversalKeysEnabled(false);
+
+        jComboBox8.setFocusTraversalKeysEnabled(false);
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -787,17 +894,7 @@ public class Product_Manager extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(20, 20, 20)
-                                .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jButton14)))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
+                        .addGap(43, 43, 43)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel21)
                             .addComponent(jLabel22)
@@ -814,9 +911,17 @@ public class Product_Manager extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jTextField12)
-                            .addComponent(jTextField14)
                             .addComponent(jTextField15)
-                            .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jComboBox7, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboBox8, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(131, 131, 131)
+                        .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(59, 59, 59)
+                        .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(39, 39, 39)
+                        .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
@@ -829,7 +934,7 @@ public class Product_Manager extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel22)
-                    .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBox8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel23)
@@ -839,7 +944,7 @@ public class Product_Manager extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel24)
-                    .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBox7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel25)
@@ -847,11 +952,10 @@ public class Product_Manager extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton11)
-                    .addComponent(jButton12)
                     .addComponent(jButton13))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton14)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin chi tiết phiếu nhập"));
@@ -890,15 +994,35 @@ public class Product_Manager extends javax.swing.JFrame {
 
         jButton16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/icons8_maintenance_20px.png"))); // NOI18N
         jButton16.setText("Sửa");
+        jButton16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton16ActionPerformed(evt);
+            }
+        });
 
         jButton17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/icons8_add_20px.png"))); // NOI18N
         jButton17.setText("Thêm");
+        jButton17.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton17ActionPerformed(evt);
+            }
+        });
 
         jButton18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/icons8_restart_20px_1.png"))); // NOI18N
         jButton18.setText("Làm mới");
+        jButton18.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton18ActionPerformed(evt);
+            }
+        });
 
         jButton15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/icons8_cancel_20px.png"))); // NOI18N
         jButton15.setText("Xoá");
+        jButton15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton15ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -999,9 +1123,11 @@ public class Product_Manager extends javax.swing.JFrame {
 
         JTabMain_Product.addTab("Phiếu nhập hàng", InputProductTab);
 
+        jPanel1.setBackground(new java.awt.Color(243, 243, 243));
         jPanel1.setPreferredSize(new java.awt.Dimension(1200, 667));
         jPanel1.setRequestFocusEnabled(false);
 
+        jTable1.setAutoCreateRowSorter(true);
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -1023,6 +1149,7 @@ public class Product_Manager extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(jTable1);
 
+        jTable2.setAutoCreateRowSorter(true);
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -1207,9 +1334,11 @@ public class Product_Manager extends javax.swing.JFrame {
 
         JTabMain_Product.addTab("Loại sản phẩm", TypeProductTab);
 
+        jPanel7.setBackground(new java.awt.Color(243, 243, 243));
         jPanel7.setPreferredSize(new java.awt.Dimension(1200, 667));
         jPanel7.setRequestFocusEnabled(false);
 
+        jTable5.setAutoCreateRowSorter(true);
         jTable5.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -1231,6 +1360,7 @@ public class Product_Manager extends javax.swing.JFrame {
         });
         jScrollPane6.setViewportView(jTable5);
 
+        jTableNSX.setAutoCreateRowSorter(true);
         jTableNSX.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -1530,11 +1660,18 @@ public class Product_Manager extends javax.swing.JFrame {
 
     private void jComboBox5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox5ActionPerformed
         // TODO add your handling code here:
+        int month = Integer.parseInt(jComboBox5.getSelectedItem().toString());
+        int year = Integer.parseInt(jComboBox4.getSelectedItem().toString());
+        int dayCount = dayInMonth(month,year);
+        jComboBox3.removeAllItems();
+        for(int i = 1; i<10;i++) {
+            String day = "0" + String.valueOf(i);
+            jComboBox3.addItem(day);
+        }
+        for(int i=10; i<=dayCount;i++) {
+            jComboBox3.addItem(String.valueOf(i));
+        }
     }//GEN-LAST:event_jComboBox5ActionPerformed
-
-    private void jTextField14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField14ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField14ActionPerformed
 
     private void jTextField15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField15ActionPerformed
         // TODO add your handling code here:
@@ -1573,6 +1710,13 @@ public class Product_Manager extends javax.swing.JFrame {
 
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
         // TODO add your handling code here:
+        jTextField12.setText(qlpnBUS.setMaPN());
+        jComboBox7.setEnabled(true);
+        jComboBox8.setEnabled(true);
+        jComboBox3.setEnabled(true);
+        jComboBox4.setEnabled(true);
+        jComboBox5.setEnabled(true);
+        jTextField15.setText("0");
     }//GEN-LAST:event_jButton14ActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
@@ -1707,6 +1851,144 @@ public class Product_Manager extends javax.swing.JFrame {
         excelAction.Export(jTableProduct);
     }//GEN-LAST:event_jButton19ActionPerformed
 
+    public int dayInMonth(int month, int year) {
+        int result = 0;
+        switch (month) {
+            case 1: case 3: case 5: case 7: case 8: case 10: case 12:
+                result = 31;
+                break;
+            case 4: case 6: case 9: case 11:
+                result =  30;
+                break;
+            case 2:
+                if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0))
+                    result = 29;
+                else result = 28;
+                break;
+
+        }
+        return result;
+    }
+    private void jTable4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable4MouseClicked
+        // TODO add your handling code here:
+        int i = jTable4.getSelectedRow();
+
+        jTextField12.setText(jTable4.getModel().getValueAt(i,0).toString());
+        jTextField15.setText(jTable4.getModel().getValueAt(i,4).toString());
+        jTextField15.setEditable(false);
+        jComboBox8.setSelectedItem(jTable4.getModel().getValueAt(i,1).toString());
+        jComboBox7.setEnabled(false);
+        jComboBox7.setSelectedItem(jTable4.getModel().getValueAt(i,2).toString());
+        jComboBox8.setEnabled(false);
+        String date[] = jTable4.getModel().getValueAt(i,3).toString().split("-");
+        System.out.println(date[0] + " " + date[1] + " " + date[2]);
+        jComboBox3.setSelectedItem(date[2]);
+        jComboBox3.setEnabled(false);
+        jComboBox5.setSelectedItem(date[1]);
+        jComboBox5.setEnabled(false);
+        jComboBox4.setSelectedItem(date[0]);
+        jComboBox4.setEnabled(false);
+        loadModalCTPN(jTextField12.getText());
+        jTextField16.setText(jTextField12.getText());
+
+    }//GEN-LAST:event_jTable4MouseClicked
+
+    private void jTable3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable3MouseClicked
+        // TODO add your handling code here:
+        int i = jTable3.getSelectedRow();
+        jTextField16.setText(jTable3.getModel().getValueAt(i,0).toString());
+        jTextField18.setText(jTable3.getModel().getValueAt(i,1).toString());
+        jTextField19.setText(jTable3.getModel().getValueAt(i,2).toString());
+        jTextField20.setText(jTable3.getModel().getValueAt(i,3).toString());
+        jTextField18.setEditable(false);
+    }//GEN-LAST:event_jTable3MouseClicked
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        // TODO add your handling code here:
+        String maPN = jTextField12.getText().trim();
+        String maNV = jComboBox8.getSelectedItem().toString();
+        String ngay = jComboBox4.getSelectedItem().toString()+ "-" + jComboBox5.getSelectedItem().toString() + "-" + jComboBox3.getSelectedItem().toString();
+        LocalDate ngayNhap = LocalDate.parse(ngay);
+        String maNCC = jComboBox7.getSelectedItem().toString();
+        int tongTien = 0;
+        PhieuNhap pn = new PhieuNhap(maPN,maNV,maNCC,ngayNhap,tongTien);
+        if(qlpnBUS.themPhieuNhap(pn)) {
+            JOptionPane.showMessageDialog(null,"Thêm phiếu nhập thành công");
+            loadModalPN();
+
+        } else {
+            JOptionPane.showMessageDialog(null,"Thêm phiếu nhập thất bại");
+        }
+    }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+        // TODO add your handling code here:
+        if(qlpnBUS.xoaPhieuNhap(jTextField12.getText())) {
+            JOptionPane.showMessageDialog(null,"Xóa phiếu nhập thành công");
+            loadModalPN();
+        }
+    }//GEN-LAST:event_jButton13ActionPerformed
+
+    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
+        // TODO add your handling code here:
+        String mapn = jTextField16.getText();
+        String masp = jTextField18.getText();
+        if(qlctpnBUS.delete(mapn, masp)){
+            JOptionPane.showMessageDialog(null, "Xóa chi tiết phiếu nhập thành công");
+            loadModalPN();
+            loadModalCTPN(mapn);
+            jTextField18.setText("");
+            jTextField19.setText("");
+            jTextField20.setText("");
+        }
+        else {
+            JOptionPane.showMessageDialog(null,"Xóa thất bại");
+        }
+    }//GEN-LAST:event_jButton15ActionPerformed
+
+    private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
+        // TODO add your handling code here:
+        String maPN = jTextField16.getText();
+        String maSP = jTextField18.getText().trim();
+        int soLuong = Integer.parseInt(jTextField19.getText());
+        int donGia = Integer.parseInt(jTextField20.getText());
+
+        ChiTietPhieuNhap ct = new ChiTietPhieuNhap(maPN,maSP,soLuong,donGia);
+        if(qlctpnBUS.themChiTietPN(ct)) {
+            JOptionPane.showMessageDialog(null,"Thêm thành công");
+            loadModalCTPN(maPN);
+            loadModalPN();
+        } else {
+            JOptionPane.showMessageDialog(null,"Thêm thất bại");
+        }
+        
+        
+    }//GEN-LAST:event_jButton17ActionPerformed
+
+    private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
+        // TODO add your handling code here:
+        jTextField18.setEditable(true);
+        jTextField18.setText("");
+        jTextField19.setText("");
+        jTextField20.setText("");
+    }//GEN-LAST:event_jButton18ActionPerformed
+
+    private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
+        // TODO add your handling code here:
+        String maPN = jTextField16.getText();
+        String maSP = jTextField18.getText().trim();
+        int soLuong = Integer.parseInt(jTextField19.getText());
+        int donGia = Integer.parseInt(jTextField20.getText());
+
+        if(qlctpnBUS.update(maPN,maSP,soLuong,donGia)) {
+            JOptionPane.showMessageDialog(null,"Cập nhật thành công");
+            loadModalCTPN(maPN);
+            loadModalPN();
+        } else {
+            JOptionPane.showMessageDialog(null,"Cập nhật thất bại");
+        }
+    }//GEN-LAST:event_jButton16ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1729,6 +2011,7 @@ public class Product_Manager extends javax.swing.JFrame {
                 Product_Manager frame = new Product_Manager();
                 Menu menuFrame = new Menu();
                 if(menuFrame.checkLogin()) {
+                    frame.setLocationRelativeTo(null);
                     frame.setVisible(true);
                     menuFrame.setVisible(false);
                     menuFrame.dispose();
@@ -1737,6 +2020,7 @@ public class Product_Manager extends javax.swing.JFrame {
                     menuFrame.setVisible(false);
                     menuFrame.dispose();
                     Login login = new Login();
+                    login.setLocationRelativeTo(null);
                     login.setVisible(true);
                     login.pack();
                 }
@@ -1762,7 +2046,6 @@ public class Product_Manager extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton15;
@@ -1784,6 +2067,8 @@ public class Product_Manager extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JComboBox<String> jComboBox5;
     private javax.swing.JComboBox<String> jComboBox6;
+    private javax.swing.JComboBox<String> jComboBox7;
+    private javax.swing.JComboBox<String> jComboBox8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel16;
@@ -1838,8 +2123,6 @@ public class Product_Manager extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField11;
     private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField13;
-    private javax.swing.JTextField jTextField14;
     private javax.swing.JTextField jTextField15;
     private javax.swing.JTextField jTextField16;
     private javax.swing.JTextField jTextField18;

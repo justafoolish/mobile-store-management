@@ -71,17 +71,21 @@ public class QuanLyChiTietPhieuNhapBUS {
         Boolean check = qlctpnDAO.add(ctpn);
         if(check) {
             dsctpn.add(ctpn);
+            int TongTien = ctpn.getDonGia() * ctpn.getSoLuong();
+            qlpnBUS.updateTongTien(ctpn.getMaPhieuNhap(),TongTien);
             return true;
         }
         return false;
 
     }
     
-    public boolean delete(String mapn) {
-        Boolean ok = qlctpnDAO.deleteAll(mapn);
+    public boolean delete(String mapn, String masp) {
+        Boolean ok = qlctpnDAO.delete(mapn,masp);
         if (ok) {
             for (int i = (dsctpn.size() - 1); i >= 0; i--) {
-                if (dsctpn.get(i).getMaPhieuNhap().equals(mapn)) {
+                if (dsctpn.get(i).getMaPhieuNhap().equals(mapn) && dsctpn.get(i).getMaSanPham().equals(masp)) {
+                    int TongTien = dsctpn.get(i).getDonGia() * dsctpn.get(i).getSoLuong() *-1;
+                    qlpnBUS.updateTongTien(dsctpn.get(i).getMaPhieuNhap(),TongTien);
                     dsctpn.remove(i);
                 }
             }
@@ -96,8 +100,11 @@ public class QuanLyChiTietPhieuNhapBUS {
         if (ok) {
             dsctpn.forEach((ctpn) -> {
                 if (ctpn.getMaPhieuNhap().equals(mapn) && ctpn.getMaSanPham().equals(masp)) {
-                    ChiTietPhieuNhap pn = new ChiTietPhieuNhap(mapn, masp, soluong, dongia);
-                    dsctpn.add(pn);
+                    int curTotal = ctpn.getSoLuong() * ctpn.getDonGia();
+                    int newTotal = (soluong * dongia) - curTotal;
+                    qlpnBUS.updateTongTien(mapn,newTotal);
+                    ctpn.setDonGia(dongia);
+                    ctpn.setSoLuong(soluong);
                 }
             });
         }

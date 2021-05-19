@@ -135,8 +135,11 @@ public class Coupon extends javax.swing.JFrame {
         btnDelete2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Quản lý giảm giá");
+        setBackground(new java.awt.Color(243, 243, 243));
         setResizable(false);
 
+        jTableChuongTrinh.setAutoCreateRowSorter(true);
         jTableChuongTrinh.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         jTableChuongTrinh.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -149,6 +152,8 @@ public class Coupon extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTableChuongTrinh.setShowHorizontalLines(true);
+        jTableChuongTrinh.setShowVerticalLines(true);
         jTableChuongTrinh.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableChuongTrinhMouseClicked(evt);
@@ -156,6 +161,7 @@ public class Coupon extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTableChuongTrinh);
 
+        jTableChiTiet.setAutoCreateRowSorter(true);
         jTableChiTiet.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -167,6 +173,8 @@ public class Coupon extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTableChiTiet.setShowHorizontalLines(true);
+        jTableChiTiet.setShowVerticalLines(true);
         jTableChiTiet.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableChiTietMouseClicked(evt);
@@ -211,7 +219,7 @@ public class Coupon extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 51, 51));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("Lưu ý: Ngày tháng năm được định dạng theo yyyy/MM/dd || VD: 2021-05-15");
+        jLabel7.setText("Lưu ý: Ngày tháng năm được định dạng theo yyyy-MM-dd || VD: 2021-05-15");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -359,9 +367,9 @@ public class Coupon extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addGap(65, 65, 65)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAdd1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnUpdate1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnAdd1, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                    .addComponent(btnUpdate1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(67, 67, 67)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnRefesh1)
@@ -422,13 +430,13 @@ public class Coupon extends javax.swing.JFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(btnUpdate2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAdd2, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
-                .addGap(74, 74, 74)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnRefesh2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnDelete2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnAdd2, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                    .addComponent(btnUpdate2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(56, 56, 56)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnDelete2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnRefesh2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(65, 65, 65))
         );
         jPanel5Layout.setVerticalGroup(
@@ -680,6 +688,7 @@ public class Coupon extends javax.swing.JFrame {
                 Coupon frame = new Coupon();
                 Menu menuFrame = new Menu();
                 if(menuFrame.checkLogin()) {
+                    frame.setLocationRelativeTo(null);
                     frame.setVisible(true);
                     menuFrame.setVisible(false);
                     menuFrame.dispose();
@@ -688,6 +697,7 @@ public class Coupon extends javax.swing.JFrame {
                     menuFrame.setVisible(false);
                     menuFrame.dispose();
                     Login login = new Login();
+                    login.setLocationRelativeTo(null);
                     login.setVisible(true);
                     login.pack();
                 }

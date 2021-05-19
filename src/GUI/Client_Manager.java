@@ -122,10 +122,13 @@ public class Client_Manager extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Quản lý khách hàng");
+        setBackground(new java.awt.Color(243, 243, 243));
         setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin chung"));
 
+        jTable2.setAutoCreateRowSorter(true);
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null},
@@ -145,6 +148,8 @@ public class Client_Manager extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        jTable2.setShowHorizontalLines(true);
+        jTable2.setShowVerticalLines(true);
         jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable2MouseClicked(evt);
@@ -359,7 +364,7 @@ public class Client_Manager extends javax.swing.JFrame {
                 .addGap(36, 36, 36))
         );
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/icons8_search_20px_1.png"))); // NOI18N
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/icons8_microsoft_excel_20px_1.png"))); // NOI18N
         jButton3.setText("Xuất Excel");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -536,14 +541,16 @@ public class Client_Manager extends javax.swing.JFrame {
         } catch (Exception e) {
             System.out.println(e);
         }
+        
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Client_Manager frame = new Client_Manager();
+                Client_Manager frame = new Client_Manager();                
                 Menu menuFrame = new Menu();
                 if(menuFrame.checkLogin()) {
+                    frame.setLocationRelativeTo(null);
                     frame.setVisible(true);
                     menuFrame.setVisible(false);
                     menuFrame.dispose();
@@ -552,6 +559,7 @@ public class Client_Manager extends javax.swing.JFrame {
                     menuFrame.setVisible(false);
                     menuFrame.dispose();
                     Login login = new Login();
+                    login.setLocationRelativeTo(null);
                     login.setVisible(true);
                     login.pack();
                 }

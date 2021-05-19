@@ -135,6 +135,8 @@ public class Payment extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTextArea1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Thanh toán");
+        setBackground(new java.awt.Color(243, 243, 243));
         setResizable(false);
 
         jLabel1.setText("Tên khách hàng:");
@@ -175,7 +177,7 @@ public class Payment extends javax.swing.JFrame {
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Tình trạng");
 
-        jLabel6.setFont(new java.awt.Font("iCiel Novecento sans SemBd", 1, 36)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel6.setText("Thanh Toán");
 
         jTextArea2.setColumns(20);
@@ -203,14 +205,14 @@ public class Payment extends javax.swing.JFrame {
                             .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextField1)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(78, 78, 78)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(50, 50, 50)
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(19, 19, 19)
-                        .addComponent(jLabel6)))
+                        .addComponent(jLabel6))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(58, 58, 58)
+                        .addComponent(jButton1)))
                 .addGap(14, 14, 14)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 477, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -306,6 +308,7 @@ public class Payment extends javax.swing.JFrame {
                 Payment frame = new Payment();
                 Menu menuFrame = new Menu();
                 if(menuFrame.checkLogin()) {
+                    frame.setLocationRelativeTo(null);
                     frame.setVisible(true);
                     menuFrame.setVisible(false);
                     menuFrame.dispose();
@@ -314,6 +317,7 @@ public class Payment extends javax.swing.JFrame {
                     menuFrame.setVisible(false);
                     menuFrame.dispose();
                     Login login = new Login();
+                    login.setLocationRelativeTo(null);
                     login.setVisible(true);
                     login.pack();
                 }

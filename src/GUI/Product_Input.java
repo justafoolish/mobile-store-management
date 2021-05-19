@@ -45,6 +45,8 @@ public class Product_Input extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Nhập file Excel");
+        setBackground(new java.awt.Color(243, 243, 243));
         setName("Product_input"); // NOI18N
 
         jTable1.setAutoCreateRowSorter(true);
@@ -60,6 +62,8 @@ public class Product_Input extends javax.swing.JFrame {
             }
         ));
         jTable1.setShowGrid(false);
+        jTable1.setShowHorizontalLines(true);
+        jTable1.setShowVerticalLines(true);
         jScrollPane1.setViewportView(jTable1);
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/icons8_microsoft_excel_20px_1.png"))); // NOI18N
@@ -142,6 +146,7 @@ public class Product_Input extends javax.swing.JFrame {
                 Product_Input frame = new Product_Input();
                 Menu menuFrame = new Menu();
                 if(menuFrame.checkLogin()) {
+                    frame.setLocationRelativeTo(null);
                     frame.setVisible(true);
                     menuFrame.setVisible(false);
                     menuFrame.dispose();
@@ -150,6 +155,7 @@ public class Product_Input extends javax.swing.JFrame {
                     menuFrame.setVisible(false);
                     menuFrame.dispose();
                     Login login = new Login();
+                    login.setLocationRelativeTo(null);
                     login.setVisible(true);
                     login.pack();
                 }

@@ -82,6 +82,13 @@ public class QuanLyPhieuNhapDAO {
         connection.closeConnect();
         return ok;
     }
+    public Boolean updateTongTien(String mapn, int tongTien) {
+        connection = new ConnectionDB();
+        String query = "UPDATE phieunhap SET TONGTIEN = " + tongTien + " WHERE MAPHIEUNHAP='" + mapn +"'";
+        Boolean check = connection.sqlUpdate(query);
+        connection.closeConnect();
+        return check;
+    }
 
     public Boolean update(String maPhieuNhap, String maNhanVien, String maNCC, LocalDate ngayNhap) {
         PhieuNhap pn = new PhieuNhap();

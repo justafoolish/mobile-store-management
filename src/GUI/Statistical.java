@@ -168,6 +168,7 @@ public class Statistical extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Thống kê cửa hàng");
         setResizable(false);
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/icons8_microsoft_excel_20px_1.png"))); // NOI18N
@@ -178,6 +179,7 @@ public class Statistical extends javax.swing.JFrame {
             }
         });
 
+        jTable1.setAutoCreateRowSorter(true);
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -197,6 +199,8 @@ public class Statistical extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        jTable1.setShowHorizontalLines(true);
+        jTable1.setShowVerticalLines(true);
         jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -820,6 +824,7 @@ public class Statistical extends javax.swing.JFrame {
                 Statistical stat = new Statistical();
                 Menu menuFrame = new Menu();
                 if(menuFrame.checkLogin()) {
+                    stat.setLocationRelativeTo(null);
                     stat.setVisible(true);
                     menuFrame.setVisible(false);
                     menuFrame.dispose();
@@ -828,6 +833,7 @@ public class Statistical extends javax.swing.JFrame {
                     menuFrame.setVisible(false);
                     menuFrame.dispose();
                     Login login = new Login();
+                    login.setLocationRelativeTo(null);
                     login.setVisible(true);
                     login.pack();
                 }

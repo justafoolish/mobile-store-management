@@ -107,4 +107,17 @@ public class QuanLyPhieuNhapBUS {
         }
          return "PN"+String.valueOf(++max);
     }
+    public Boolean updateTongTien(String maPN, int TongTien) {
+        for(PhieuNhap pn : dspn) {
+            if(pn.getMaPhieuNhap().equals(maPN)) {
+                int tongTien = pn.getTongTien() + TongTien;
+                Boolean check = qlpnDAO.updateTongTien(maPN,tongTien);
+                if(check) {
+                    pn.setTongTien(tongTien);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }
