@@ -9,6 +9,8 @@ import BUS.QuanLyNhanVienBUS;
 import com.formdev.flatlaf.FlatLightLaf;
 
 import javax.swing.*;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 
 /**
  *
@@ -188,6 +190,7 @@ public class Login extends javax.swing.JFrame {
         String pass = String.valueOf(sdt);
         if (qlnvBUS.checkLogin(email,pass)) {
             JOptionPane.showMessageDialog(null, "Đăng nhập thành công");
+            qlnvBUS.StoredLogin(email,pass);
             Menu menuFrame = new Menu();
             menuFrame.setVisible(true);
             menuFrame.pack();

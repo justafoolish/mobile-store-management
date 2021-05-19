@@ -30,6 +30,12 @@ public class ImportExcel {
         return path;
     }
 
+    public String getImagePath() {
+        fd.setTitle("Chọn hình");
+        String path = getFile();
+        return path;
+    }
+
     public ArrayList<SanPham> readProductFile() {
         ArrayList<SanPham> result = new ArrayList<>();
         fd.setTitle("Nhập dữ liệu từ Excel");

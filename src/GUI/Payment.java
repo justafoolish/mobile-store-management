@@ -303,7 +303,20 @@ public class Payment extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Payment().setVisible(true);
+                Payment frame = new Payment();
+                Menu menuFrame = new Menu();
+                if(menuFrame.checkLogin()) {
+                    frame.setVisible(true);
+                    menuFrame.setVisible(false);
+                    menuFrame.dispose();
+                } else {
+                    frame.dispose();
+                    menuFrame.setVisible(false);
+                    menuFrame.dispose();
+                    Login login = new Login();
+                    login.setVisible(true);
+                    login.pack();
+                }
             }
         });
     }

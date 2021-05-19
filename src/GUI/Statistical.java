@@ -817,7 +817,20 @@ public class Statistical extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Statistical().setVisible(true);
+                Statistical stat = new Statistical();
+                Menu menuFrame = new Menu();
+                if(menuFrame.checkLogin()) {
+                    stat.setVisible(true);
+                    menuFrame.setVisible(false);
+                    menuFrame.dispose();
+                } else {
+                    stat.dispose();
+                    menuFrame.setVisible(false);
+                    menuFrame.dispose();
+                    Login login = new Login();
+                    login.setVisible(true);
+                    login.pack();
+                }
             }
         });
     }

@@ -1133,7 +1133,20 @@ QuanLyNhanVienBUS qlnvBUS;
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Staff_Manager().setVisible(true);
+                Staff_Manager frame = new Staff_Manager();
+                Menu menuFrame = new Menu();
+                if(menuFrame.checkLogin()) {
+                    frame.setVisible(true);
+                    menuFrame.setVisible(false);
+                    menuFrame.dispose();
+                } else {
+                    frame.dispose();
+                    menuFrame.setVisible(false);
+                    menuFrame.dispose();
+                    Login login = new Login();
+                    login.setVisible(true);
+                    login.pack();
+                }
             }
         });
     }

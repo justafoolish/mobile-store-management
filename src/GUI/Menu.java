@@ -8,17 +8,46 @@ package GUI;
 import javax.swing.UIManager;
 import com.formdev.flatlaf.FlatLightLaf;
 
+import java.io.*;
+import java.util.Scanner;
+import javax.swing.JFrame;
+
 /**
  *
  * @author Gyn
  */
 public class Menu extends javax.swing.JFrame {
+    private String currentDirectory = System.getProperty("user.dir");
 
     /**
      * Creates new form Menu
      */
     public Menu() {
         initComponents();
+    }
+
+    public Boolean checkLogin() {
+        try {
+        String path = currentDirectory + "/SESSION.LOGIN";
+            System.out.println(path);
+        File checkLog = new File(path);
+        if(!checkLog.exists()) {
+            return false;
+        }
+            BufferedReader in = new BufferedReader(new FileReader(checkLog));
+
+            String ID = "";
+            ID = in.readLine();
+            System.out.println(ID);
+            if(ID == null || ID.equals("")) {
+                return false;
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException ie) {
+            ie.printStackTrace();
+        }
+        return true;
     }
 
     /**
@@ -291,7 +320,15 @@ public class Menu extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 Menu menuFrame = new Menu();
-                menuFrame.setVisible(true);
+                if(menuFrame.checkLogin()) {
+                    menuFrame.setVisible(true);
+                } else {
+                    menuFrame.setVisible(false);
+                    menuFrame.dispose();
+                    Login login = new Login();
+                    login.setVisible(true);
+                    login.pack();
+                }
             }
         });
     }

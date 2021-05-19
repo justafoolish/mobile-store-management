@@ -7,6 +7,10 @@ package BUS;
 
 import DAO.QuanLyNhanVienDAO;
 import DTO.NhanVien;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -129,6 +133,22 @@ public class QuanLyNhanVienBUS {
             }
         }
         return result;
+    }
+    public void StoredLogin(String email, String passwd) {
+        for(NhanVien nv: dsnv) {
+            if(nv.getEmail().toLowerCase().equals(email) && nv.getSDT().equals(passwd)) {
+                 String maNV = nv.getMaNhanVien();
+                BufferedWriter writer = null;
+                try {
+                    writer = new BufferedWriter(new FileWriter("SESSION.LOGIN"));
+                    writer.write(maNV);
+                    writer.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }
     }
 
     public ArrayList<NhanVien> searchByID(String maNV) {
