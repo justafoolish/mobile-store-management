@@ -224,6 +224,7 @@ public class Login extends javax.swing.JFrame {
             menuFrame.setLocationRelativeTo(null);
             menuFrame.setVisible(true);
             menuFrame.pack();
+            menuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             this.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(null, "Đăng nhập thất bại");
@@ -265,6 +266,7 @@ public class Login extends javax.swing.JFrame {
                 Login loginFrame = new Login();
                 loginFrame.setLocationRelativeTo(null);
                 loginFrame.setVisible(true);
+                loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             }
         });
     }
