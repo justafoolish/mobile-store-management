@@ -6,6 +6,9 @@
 package GUI;
 
 import javax.swing.UIManager;
+
+import BUS.QuanLyNhanVienBUS;
+import DTO.NhanVien;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.io.*;
 import java.util.Scanner;
@@ -17,13 +20,34 @@ import javax.swing.JFrame;
  */
 public class Menu extends javax.swing.JFrame {
     private String currentDirectory = System.getProperty("user.dir");
-
+    private QuanLyNhanVienBUS qlnv = new QuanLyNhanVienBUS();
+    String name;
     /**
      * Creates new form Menu
      */
     public Menu() {
         initComponents();
+        try {
+            setUserName();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        jLabel1.setText("Chào " + name);
+
     }
+
+
+    public void setUserName() throws IOException {
+        String path = currentDirectory + "/SESSION.LOGIN";
+        File checkLog = new File(path);
+        BufferedReader in = new BufferedReader(new FileReader(checkLog));
+
+        String maNV = in.readLine();
+        NhanVien nv = qlnv.getNhanVien(maNV);
+        this.name = nv.getHo() + " " + nv.getTen();
+
+    }
+
 
     public Boolean checkLogin() {
         try {
@@ -41,6 +65,7 @@ public class Menu extends javax.swing.JFrame {
             if(ID == null || ID.equals("")) {
                 return false;
             }
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException ie) {

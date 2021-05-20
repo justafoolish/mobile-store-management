@@ -160,6 +160,24 @@ public class Order extends javax.swing.JFrame {
         }
         jTable2.setModel(detailModel);
     }
+    public int dayInMonth(int month, int year) {
+        int result = 0;
+        switch (month) {
+            case 1: case 3: case 5: case 7: case 8: case 10: case 12:
+                result = 31;
+                break;
+            case 4: case 6: case 9: case 11:
+                result =  30;
+                break;
+            case 2:
+                if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0))
+                    result = 29;
+                else result = 28;
+                break;
+
+        }
+        return result;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -193,7 +211,6 @@ public class Order extends javax.swing.JFrame {
         jComboBox3 = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         btnAdd1 = new javax.swing.JButton();
-        btnUpdate1 = new javax.swing.JButton();
         btnDelete1 = new javax.swing.JButton();
         btnRefesh1 = new javax.swing.JButton();
         btnAdd2 = new javax.swing.JButton();
@@ -248,8 +265,6 @@ public class Order extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTable1.setShowHorizontalLines(true);
-        jTable1.setShowVerticalLines(true);
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable1MouseClicked(evt);
@@ -277,8 +292,6 @@ public class Order extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jTable2.setShowHorizontalLines(true);
-        jTable2.setShowVerticalLines(true);
         jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable2MouseClicked(evt);
@@ -391,14 +404,6 @@ public class Order extends javax.swing.JFrame {
             }
         });
 
-        btnUpdate1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/icons8_maintenance_20px.png"))); // NOI18N
-        btnUpdate1.setText("Sửa");
-        btnUpdate1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdate1ActionPerformed(evt);
-            }
-        });
-
         btnDelete1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/icons8_cancel_20px.png"))); // NOI18N
         btnDelete1.setText("Xoá");
         btnDelete1.addActionListener(new java.awt.event.ActionListener() {
@@ -451,7 +456,6 @@ public class Order extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnUpdate1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnAdd1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnDelete1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnRefesh1, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
@@ -463,11 +467,9 @@ public class Order extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(62, 62, 62)
+                .addGap(106, 106, 106)
                 .addComponent(btnAdd1)
                 .addGap(18, 18, 18)
-                .addComponent(btnUpdate1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnDelete1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnRefesh1)
@@ -534,7 +536,7 @@ public class Order extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 85, Short.MAX_VALUE)
                     .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -632,12 +634,22 @@ public class Order extends javax.swing.JFrame {
         jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
 
         jComboBox6.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
+        jComboBox6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox6ActionPerformed(evt);
+            }
+        });
 
         jComboBox7.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2017", "2018", "2019", "2020", "2021", "2022", "2023" }));
 
         jComboBox8.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2017", "2018", "2019", "2020", "2021", "2022", "2023" }));
 
         jComboBox9.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
+        jComboBox9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox9ActionPerformed(evt);
+            }
+        });
 
         jComboBox10.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
 
@@ -690,6 +702,9 @@ public class Order extends javax.swing.JFrame {
                     .addComponent(jButton3))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jComboBox7.setSelectedItem("2021");
+        jComboBox8.setSelectedItem("2021");
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/icons8_online_payment_with_a_credit_card_30px.png"))); // NOI18N
         jButton1.setText("Thanh toán");
@@ -793,11 +808,6 @@ public class Order extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnAdd1ActionPerformed
 
-    private void btnUpdate1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdate1ActionPerformed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_btnUpdate1ActionPerformed
-
     private void btnDelete1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete1ActionPerformed
         // TODO add your handling code here:
         String maHD = jTextField1.getText();
@@ -817,6 +827,7 @@ public class Order extends javax.swing.JFrame {
         jTextField7.setText("0");
         jTextField6.setText("0");
         loadModel();
+        jComboBox3.setEnabled(true);
         
     }//GEN-LAST:event_btnRefesh1ActionPerformed
 
@@ -895,6 +906,7 @@ public class Order extends javax.swing.JFrame {
         jTextField9.setEditable(true);
         jTextField11.setText("");
         jTextField12.setText("");
+        jComboBox3.setEnabled(false);
 
 
 
@@ -1020,6 +1032,36 @@ public class Order extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jComboBox6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox6ActionPerformed
+        // TODO add your handling code here:
+        int month = Integer.parseInt(jComboBox6.getSelectedItem().toString());
+        int year = Integer.parseInt(jComboBox7.getSelectedItem().toString());
+        int dayCount = dayInMonth(month,year);
+        jComboBox5.removeAllItems();
+        for(int i = 1; i<10;i++) {
+            String day = "0" + String.valueOf(i);
+            jComboBox5.addItem(day);
+        }
+        for(int i=10; i<=dayCount;i++) {
+            jComboBox5.addItem(String.valueOf(i));
+        }
+    }//GEN-LAST:event_jComboBox6ActionPerformed
+
+    private void jComboBox9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox9ActionPerformed
+        // TODO add your handling code here:
+        int month = Integer.parseInt(jComboBox9.getSelectedItem().toString());
+        int year = Integer.parseInt(jComboBox8.getSelectedItem().toString());
+        int dayCount = dayInMonth(month,year);
+        jComboBox10.removeAllItems();
+        for(int i = 1; i<10;i++) {
+            String day = "0" + String.valueOf(i);
+            jComboBox10.addItem(day);
+        }
+        for(int i=10; i<=dayCount;i++) {
+            jComboBox10.addItem(String.valueOf(i));
+        }
+    }//GEN-LAST:event_jComboBox9ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1070,7 +1112,6 @@ public class Order extends javax.swing.JFrame {
     private javax.swing.JButton btnDelete2;
     private javax.swing.JButton btnRefesh1;
     private javax.swing.JButton btnRefesh2;
-    private javax.swing.JButton btnUpdate1;
     private javax.swing.JButton btnUpdate2;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
